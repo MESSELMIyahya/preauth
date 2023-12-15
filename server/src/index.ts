@@ -3,6 +3,7 @@ import Dotenv from 'dotenv';
 import Cors from 'cors';
 import connectToDB from './libs/db';
 import ExpressCookies from 'express-cookie';
+import ErrorControllerHandler from './controllers/errorHandler';
 
 // dotenv config 
 Dotenv.config();
@@ -23,6 +24,16 @@ app.use(Cors());
 
 // routes
 
+// test route
+app.get('/',async(req,res,next)=>{
+    const createError = await import('http-errors')
+  return next(createError[500]('body not found'));
+})
+
+
+
+// Error Handler 
+app.use(ErrorControllerHandler);
 
 
 // connect to mongodb
