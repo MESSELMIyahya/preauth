@@ -5,6 +5,8 @@ import connectToDB from './libs/db';
 import ExpressCookies from 'express-cookie';
 import ErrorControllerHandler from './controllers/errorHandler';
 
+
+
 // dotenv config 
 Dotenv.config();
 
@@ -24,11 +26,35 @@ app.use(Cors());
 
 // routes
 
-// test route
-app.get('/',async(req,res,next)=>{
-    const createError = await import('http-errors')
-  return next(createError[500]('body not found'));
-})
+// #test route
+// app.get('/',async(_,__,next)=>{
+//     const createError = await import('http-errors')
+//   return next(createError[500]('body not found'));
+// });
+
+// import createError from 'http-errors'
+// import { generateAccessToken , generateRefreshToken, verifyAccessToken, verifyRefreshToken } from './libs/jwt';
+
+// app.post('/ac',async(req,res,next)=>{
+//   const { email,name } = req.body;
+//   if(!email||!name) return next(createError[400]('body data not provided') )
+
+//   const token = generateAccessToken({email,name});
+//   const tokenR = generateRefreshToken({email,name});
+
+//   res.json({acc:token,ref:tokenR});
+// });
+
+// app.post('/ch_ac',async(req,res,next)=>{
+//   const { token } = req.body;
+//   if(!token) return next(createError[400]('jwt token not provided') );
+//   try{  
+//     const user = await verifyRefreshToken(token);
+//     res.json({valid:true,data:user})
+//   }catch(err){
+//     next(err)
+//   }
+// });
 
 
 
@@ -37,7 +63,7 @@ app.use(ErrorControllerHandler);
 
 
 // connect to mongodb
-connectToDB();
+// connectToDB();
 
 
 
