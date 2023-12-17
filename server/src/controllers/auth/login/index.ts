@@ -1,7 +1,6 @@
 import { NextFunction , Request , Response } from "express";
 import UserModel from "../../../models/user";
 import createErr from 'http-errors';
-import jwt from 'jsonwebtoken';
 import { generateAccessToken, generateRefreshToken } from "../../../libs/jwt";
 
 
