@@ -48,7 +48,7 @@ userSchema.methods.isValidPassword = async function (pass:string) : Promise<bool
 
 
 
-const UserModel : Model<UserModelType | UserSchemaType> = models.Users || model('Users',userSchema);
+const UserModel = models.Users || model<UserSchemaType>('Users',userSchema);
 
 
 export default UserModel;
