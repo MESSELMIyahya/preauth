@@ -2,9 +2,10 @@ import Express from 'express';
 import Dotenv from 'dotenv';
 import Cors from 'cors';
 import connectToDB from './libs/db';
-import ExpressCookies from 'express-cookie';
+import cookieParser from 'cookie-parser';
 import ErrorControllerHandler from './controllers/errorHandler';
 import AuthRouter from './routes/auth';
+import AuthVerifierMiddleware from './middlewares/auth';
 
 
 
@@ -17,7 +18,7 @@ const app = Express();
 
 // express config
 app.use(Express.urlencoded({extended:true}));
-app.use(ExpressCookies());
+app.use(cookieParser());
 app.use(Express.json());
 
 // CORS config 
@@ -33,35 +34,15 @@ app.use('/auth',AuthRouter);
 
 
 // #test route
-// app.get('/',async(_,__,next)=>{
-//     const createError = await import('http-errors')
-//   return next(createError[500]('body not found'));
-// });
-
-// import createError from 'http-errors'
-// import { generateAccessToken , generateRefreshToken, verifyAccessToken, verifyRefreshToken } from './libs/jwt';
-
-// app.post('/ac',async(req,res,next)=>{
-//   const { email,name } = req.body;
-//   if(!email||!name) return next(createError[400]('body data not provided') )
-
-//   const token = generateAccessToken({email,name});
-//   const tokenR = generateRefreshToken({email,name});
-
-//   res.json({acc:token,ref:tokenR});
-// });
-
-// app.post('/ch_ac',async(req,res,next)=>{
-//   const { token } = req.body;
-//   if(!token) return next(createError[400]('jwt token not provided') );
-//   try{  
-//     const user = await verifyRefreshToken(token);
-//     res.json({valid:true,data:user})
-//   }catch(err){
-//     next(err)
-//   }
-// });
-
+import createErr from 'http-errors';
+import { Request } from 'express';
+interface ReqTyp extends Request {
+    user : any // or user type 
+}
+app.get('/posts',AuthVerifierMiddleware,(req:ReqTyp,res,next)=>{
+    if(!req.user) return next(createErr[400]('unauthenticated'))
+    res.json({message:`Hi ${req?.user.email}`})
+})
 
 
 // Error Handler 
