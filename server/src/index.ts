@@ -4,6 +4,7 @@ import Cors from 'cors';
 import connectToDB from './libs/db';
 import ExpressCookies from 'express-cookie';
 import ErrorControllerHandler from './controllers/errorHandler';
+import AuthRouter from './routes/auth';
 
 
 
@@ -24,7 +25,12 @@ app.use(Cors());
 
 
 
-// routes
+// ## Routes
+// @@ AuthRoute
+app.use('/auth',AuthRouter);
+
+
+
 
 // #test route
 // app.get('/',async(_,__,next)=>{
@@ -63,7 +69,7 @@ app.use(ErrorControllerHandler);
 
 
 // connect to mongodb
-// connectToDB();
+connectToDB();
 
 
 
