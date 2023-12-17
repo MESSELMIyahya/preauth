@@ -2,9 +2,9 @@ import jwt from 'jsonwebtoken'
 import { JWTPayloadTyp } from '../..';
 
 
-type FunTyp = (user:any)=>string
+type FunTyp = (user:JWTPayloadTyp)=>string
 
-const generateRefreshToken : FunTyp = (user:JWTPayloadTyp)=>  {
+const generateRefreshToken : FunTyp = (user)=>  {
     return jwt.sign(user,process.env.REFRESH_TOKEN,{expiresIn:'30m'});
 }
 
