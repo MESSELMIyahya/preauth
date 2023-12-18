@@ -23,11 +23,6 @@ const AuthVerifierMiddleware : FnTyp  =  async(req,res,next) => {
         const payload = await verifyAccessToken(cos?.ac_to);
         // if the token isn't valid  it'll throw an error "JWT-EXPIRED"
 
-        // user in database 
-        const user = await UserModel.findOne({email:payload.email})
-        // if user doesn't exist in database 
-        if(!user) return next(createErr[401]('Unauthenticated'));
-
         // ser the user in req 
         req.user = payload ;
         return next();
