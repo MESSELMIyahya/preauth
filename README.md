@@ -1,2 +1,2 @@
-# prechat
-chatting app with socket.io node express typescript and mongodb in server and react vite ,axios and tailwindCSS in client
+# PreAuth
+authentication app with typescript and jwt , mongoose , and passport for OAuth , GOOGLE auth and JWT 
