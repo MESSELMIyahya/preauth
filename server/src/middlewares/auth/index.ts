@@ -17,7 +17,7 @@ const AuthVerifierMiddleware : FnTyp  =  async(req,res,next) => {
     // verify if cookies exist 
     const cos = req.cookies ;
 
-    if(!cos?.ac_to||!cos?.re_to) return next(createErr[401]('Unauthenticated h'));
+    if(!cos?.ac_to||!cos?.re_to) return next(createErr[401]('Unauthenticated'));
     try{
         // verify access token 
         const payload = await verifyAccessToken(cos?.ac_to);
@@ -26,7 +26,7 @@ const AuthVerifierMiddleware : FnTyp  =  async(req,res,next) => {
         // user in database 
         const user = await UserModel.findOne({email:payload.email})
         // if user doesn't exist in database 
-        if(!user) return next(createErr[401]('Unauthenticated'+user.email));
+        if(!user) return next(createErr[401]('Unauthenticated'));
 
         // ser the user in req 
         req.user = payload ;
