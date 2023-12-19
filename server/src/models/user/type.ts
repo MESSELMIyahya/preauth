@@ -6,7 +6,8 @@ interface UserSchemaType extends Document {
     name:string;
     userName:string;
     email:string;
-    password:string;
+    oauth?:boolean
+    password?:string;
     chats?:string[];
     // methods here
 }

@@ -12,7 +12,8 @@ const userSchema = new Schema<UserSchemaType>({
     name:{required:true,type:String},
     userName:{required:true,type:String},
     email:{required:true,unique:true,type:String,lowercase:true},
-    password:{required:true,type:String},
+    oauth:{required:false,type:Boolean},
+    password:{required:false,type:String},
 });
 
 // middleware
@@ -20,6 +21,7 @@ const userSchema = new Schema<UserSchemaType>({
 
 // hashing the password
 userSchema.pre('save',async function(){
+    if(this.oauth) return ;
     this.password = await bpt.hash(this.password,10) ;
 });
 
